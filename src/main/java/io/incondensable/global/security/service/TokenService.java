@@ -59,13 +59,8 @@ public class TokenService {
 
         return tokenRepository.findTokenByCustomerId(customer.getId()).map(
                 token -> { // The Customer already has a Token.
-                    tokenRepository.save(
-                            Token.builder()
-                                    .customer(customer)
-                                    .token(token.getToken())
-                                    .activeTime(Instant.from(Instant.now().plus(JwtUtil.JWT_TOKEN_EXPIRES_IN_MINUTES, ChronoUnit.MINUTES)))
-                                    .build()
-                    );
+                    token.setActiveTime(Instant.from(Instant.now().plus(JwtUtil.JWT_TOKEN_EXPIRES_IN_MINUTES, ChronoUnit.MINUTES)));
+                    tokenRepository.save(token);
                     return token.getToken();
                 }).orElseGet(() -> { // The Customer does not have a Token yet.
                     tokenRepository.save(

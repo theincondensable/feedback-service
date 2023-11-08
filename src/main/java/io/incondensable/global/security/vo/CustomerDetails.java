@@ -28,8 +28,8 @@ public class CustomerDetails implements UserDetails {
     }
 
     public static CustomerDetails mapEntityToUserDetails(Customer customer) {
-        List<GrantedAuthority> authorities = new ArrayList<>(customer.getCustomerRoles().size());
-        authorities.addAll(customer.getCustomerRoles());
+        List<GrantedAuthority> authorities = new ArrayList<>(customer.getRoles().size());
+        authorities.addAll(customer.getRoles());
 
         return new CustomerDetails(
                 customer.getId(),

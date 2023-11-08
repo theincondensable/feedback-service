@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class EmailDuplicate extends BusinessException {
+public class CustomerEmailDuplicate extends BusinessException {
 
-    public EmailDuplicate(String email) {
+    public CustomerEmailDuplicate(String email) {
         super(new ErrorDetails(
                 "given.email.already.exists",
-                HttpStatus.FORBIDDEN,
+                HttpStatus.CONFLICT,
                 email
         ));
     }

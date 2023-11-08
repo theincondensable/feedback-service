@@ -17,6 +17,6 @@ public class SignupRequestDto {
 
     @Override
     public String toString() {
-        return customer.toString();
+        return "" + customer.toString();
     }
 }

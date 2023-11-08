@@ -1,10 +1,10 @@
 package io.incondensable.global.security.service;
 
-import io.incondensable.business.model.auth.CustomerRole;
+import io.incondensable.business.model.auth.Role;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.service.CustomerService;
 import io.incondensable.global.security.exceptions.CustomerPasswordMismatch;
-import io.incondensable.global.security.exceptions.EmailDuplicate;
+import io.incondensable.global.security.exceptions.CustomerEmailDuplicate;
 import io.incondensable.global.security.util.JwtUtil;
 import io.incondensable.global.security.vo.CustomerDetails;
 import io.incondensable.web.dto.auth.request.LoginWithCredentialsRequestDto;
@@ -41,7 +41,7 @@ public class AuthenticationService {
     public LoggedInCustomerResponseDto loginWithCredentials(LoginWithCredentialsRequestDto req) {
         Customer customer = customerService.getCustomerByEmail(req.getEmail());
 
-        if (passwordEncoder.matches(req.getPassword(), customer.getPassword()))
+        if (!passwordEncoder.matches(req.getPassword(), customer.getPassword()))
             throw new CustomerPasswordMismatch(customer.getEmail());
 
         Authentication auth = authManager.authenticate(
@@ -52,21 +52,24 @@ public class AuthenticationService {
         );
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        List<String> roles = customer.getCustomerRoles().stream().map(CustomerRole::getAuthority).toList();
+        List<String> roles = customer.getRoles().stream().map(Role::getAuthority).toList();
         String token = tokenService.generateJwtTokenOnLogin(customer);
 
         return new LoggedInCustomerResponseDto(customer.getId(), token, roles);
     }
 
-    public void logout() {
+    public String logout() {
         CustomerDetails loggedInCustomer = (CustomerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long customerId = loggedInCustomer.getId();
+        String email = loggedInCustomer.getEmail();
 
         tokenService.deleteTokenOnLogout(customerId);
 
         SecurityContext context = SecurityContextHolder.getContext();
         SecurityContextHolder.clearContext();
         context.setAuthentication(null);
+
+        return email;
     }
 
     /**
@@ -78,7 +81,7 @@ public class AuthenticationService {
      */
     public Customer signup(SignupRequestDto req) {
         if (customerService.isEmailDuplicate(req.getCustomer().getEmail()))
-            throw new EmailDuplicate(req.getCustomer().getEmail());
+            throw new CustomerEmailDuplicate(req.getCustomer().getEmail());
 
         String encodedPassword = passwordEncoder.encode(req.getCustomer().getPassword());
 

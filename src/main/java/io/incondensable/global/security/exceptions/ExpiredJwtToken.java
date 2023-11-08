@@ -13,7 +13,7 @@ public class ExpiredJwtToken extends BusinessException {
         super(new ErrorDetails(
                 "jwt.token.is.expired",
                 HttpStatus.FORBIDDEN,
-                id
+                String.valueOf(id)
         ));
     }
 

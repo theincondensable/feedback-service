@@ -3,21 +3,36 @@ package io.incondensable.mapper;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.web.dto.customer.request.CustomerRequestDto;
 import io.incondensable.web.dto.customer.response.CustomerResponseDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author abbas
  */
-@Mapper(componentModel = "spring", uses = AddressMapper.class)
-public interface CustomerMapper {
+@Mapper
+@RequiredArgsConstructor
+public class CustomerMapper {
 
-    CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
+    private final AddressMapper addressMapper;
 
-    CustomerResponseDto entityToDto(Customer customer);
+    public CustomerResponseDto entityToDto(Customer customer) {
+        CustomerResponseDto dto = new CustomerResponseDto();
 
-    @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "password", ignore = true)
-    Customer dtoToEntity(CustomerRequestDto dto);
+        dto.setAddress(addressMapper.entityToDto(customer.getAddress()));
+        dto.setFirstname(customer.getFirstname());
+        dto.setLastname(customer.getLastname());
+        dto.setEmail(customer.getEmail());
+        dto.setPhoneNumber(customer.getPhoneNumber());
+
+        return dto;
+    }
+
+    public Customer dtoToEntity(CustomerRequestDto dto) {
+        return Customer.builder()
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .phoneNumber(dto.getPhoneNumber())
+                .email(dto.getEmail())
+                .address(addressMapper.dtoToEntity(dto.getAddress()))
+                .build();
+    }
 }

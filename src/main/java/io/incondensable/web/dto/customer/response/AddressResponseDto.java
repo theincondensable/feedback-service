@@ -18,8 +18,7 @@ public class AddressResponseDto {
 
     @Override
     public String toString() {
-        return "" +
-                "country='" + country + '\'' +
+        return "country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", zipcode='" + zipcode + '\'';

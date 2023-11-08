@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author abbas
@@ -23,10 +25,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ErrorDetails> businessExceptionHandler(BusinessException exception) {
+    public ResponseEntity<String> businessExceptionHandler(BusinessException exception) {
         return ResponseEntity
                 .status(exception.getErrorDetails().getHttpStatus())
-                .body(exception.getErrorDetails());
+                .body(messageSource.getMessage(
+                        exception.getErrorDetails().getMessage(),
+                        exception.getErrorDetails().getArgs(),
+                        Locale.getDefault())
+                );
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

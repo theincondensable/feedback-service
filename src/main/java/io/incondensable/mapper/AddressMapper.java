@@ -3,19 +3,32 @@ package io.incondensable.mapper;
 import io.incondensable.business.model.client.Address;
 import io.incondensable.web.dto.customer.request.AddressRequestDto;
 import io.incondensable.web.dto.customer.response.AddressResponseDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 /**
  * @author abbas
  */
-@Mapper(componentModel = "spring")
-public interface AddressMapper {
+@Component
+public class AddressMapper {
 
-    AddressMapper INSTANCE = Mappers.getMapper(AddressMapper.class);
+    public AddressResponseDto entityToDto(Address address) {
+        AddressResponseDto dto = new AddressResponseDto();
 
-    AddressResponseDto entityToDto(Address address);
+        dto.setCountry(address.getCountry());
+        dto.setCity(address.getCity());
+        dto.setStreet(address.getStreet());
+        dto.setZipcode(address.getZipcode());
 
-    Address dtoToEntity(AddressRequestDto dto);
+        return dto;
+    }
+
+    public Address dtoToEntity(AddressRequestDto dto) {
+        return Address.builder()
+                .country(dto.getCountry())
+                .city(dto.getCity())
+                .street(dto.getStreet())
+                .zipcode(dto.getZipcode())
+                .build();
+    }
 
 }

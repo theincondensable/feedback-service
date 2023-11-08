@@ -24,8 +24,7 @@ public class CustomerRequestDto {
 
     @Override
     public String toString() {
-        return "" +
-                "firstname='" + firstname + '\'' +
+        return "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

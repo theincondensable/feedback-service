@@ -4,6 +4,9 @@ import io.incondensable.business.service.CustomerService;
 import io.incondensable.global.aspects.log.aspect.ControllerLog;
 import io.incondensable.mapper.CustomerMapper;
 import io.incondensable.web.dto.customer.response.CustomerResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,12 @@ public class CustomerController {
 
     @ControllerLog
     @GetMapping("/{email}")
+    @Operation(summary = "To Get a Persisted Customer.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Returns The matching E-Mail Address Customer"),
+                    @ApiResponse(responseCode = "404", description = "Customer with given E-Mail Address Not Found.")
+            }
+    )
     public ResponseEntity<CustomerResponseDto> getCustomerByEmail(@PathVariable String email) {
         return ResponseEntity.ok(
                 customerMapper.entityToDto(

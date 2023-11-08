@@ -32,12 +32,13 @@ public class ControllerLogAspect {
 
         Object res = o.proceed();
 
-        logger.logResponse(scope, res.toString());
+        logger.logResponse(res.toString(), scope);
         return res;
     }
 
     private String extractScope(String declaringTypeName, String methodName) {
-        String className = declaringTypeName.substring(46);
+        String[] split = declaringTypeName.split("\\.");
+        String className = split[split.length - 1];
         return className + "." + methodName + "()";
     }
 

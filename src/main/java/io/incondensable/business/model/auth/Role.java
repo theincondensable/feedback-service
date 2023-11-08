@@ -18,7 +18,7 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerRole implements GrantedAuthority {
+public class Role implements GrantedAuthority {
 
     @Id
     private Short id;

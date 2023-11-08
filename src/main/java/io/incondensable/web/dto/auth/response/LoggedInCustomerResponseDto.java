@@ -16,4 +16,11 @@ public class LoggedInCustomerResponseDto {
     private Long customerId;
     private String token;
     private List<String> roles;
+
+    @Override
+    public String toString() {
+        return "customerId=" + customerId +
+                ", token='" + token + '\'' +
+                ", roles=" + roles;
+    }
 }

@@ -53,9 +53,8 @@ public final class ErrorDetails {
     }
 
     public void setErrorDetail(Object... args) {
-        for (int i = 0; i < args.length; i = i + 2) {
-            int index = i + 1;
-            this.errorDetail.put((String) args[i],  String.valueOf(args[index]));
+        for (int i = 0; i < args.length; i++) {
+            this.errorDetail.put((String) args[i], String.valueOf(args[i]));
         }
     }
 }

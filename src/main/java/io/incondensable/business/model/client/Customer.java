@@ -1,6 +1,6 @@
 package io.incondensable.business.model.client;
 
-import io.incondensable.business.model.auth.CustomerRole;
+import io.incondensable.business.model.auth.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,7 +40,7 @@ public class Customer {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    private Set<CustomerRole> customerRoles;
+    private Set<Role> roles;
 
     public String fullName() {
         return firstname + lastname;

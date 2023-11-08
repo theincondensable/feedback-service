@@ -46,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                         filterChain.doFilter(request, response);
                     } catch (BusinessException e) {
-                        jwtInvalidError(response);
+                        jwtInvalidError(username, response);
                     } catch (ServletException | IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -70,13 +70,13 @@ public class JwtFilter extends OncePerRequestFilter {
         );
     }
 
-    private void jwtInvalidError(HttpServletResponse response) {
+    private void jwtInvalidError(String username, HttpServletResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         try {
             PrintWriter writer = response.getWriter();
-            objectMapper.writeValue(writer, new ErrorDetails("Jwt Token is not valid.", HttpStatus.NOT_ACCEPTABLE, (Object) null));
+            objectMapper.writeValue(writer, new ErrorDetails("Jwt Token is not valid.", HttpStatus.NOT_ACCEPTABLE, username));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

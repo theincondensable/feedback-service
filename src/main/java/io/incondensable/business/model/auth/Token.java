@@ -25,7 +25,7 @@ public class Token {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String token;
 
     private Instant activeTime;

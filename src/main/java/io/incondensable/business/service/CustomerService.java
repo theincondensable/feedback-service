@@ -1,7 +1,7 @@
 package io.incondensable.business.service;
 
 import io.incondensable.business.exceptions.customer.CustomerNotFoundException;
-import io.incondensable.business.model.auth.CustomerRole;
+import io.incondensable.business.model.auth.Role;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.repository.CustomerRepository;
 import io.incondensable.business.repository.RoleRepository;
@@ -41,31 +41,14 @@ public class CustomerService {
     }
 
     public Customer createCustomerOnSignup(SignupRequestDto req, String encodedPassword) {
-        Set<CustomerRole> customerRoles = new HashSet<>();
+        Set<Role> roles = new HashSet<>();
         req.getCustomer().getRoles().forEach(
-                r -> customerRoles.add(roleRepository.findAllByRole(RoleEnum.valueOf(r)))
+                r -> roles.add(roleRepository.findAllByRole(RoleEnum.valueOf(r)))
         );
 
         Customer customer = customerMapper.dtoToEntity(req.getCustomer());
-
         customer.setPassword(encodedPassword);
-        customer.setCustomerRoles(customerRoles);
-
-//        Customer customer = Customer.builder()
-//                .firstname(req.getCustomer().getFirstname())
-//                .lastname(req.getCustomer().getLastname())
-//                .email(req.getCustomer().getEmail())
-//                .password(encodedPassword)
-//                .address(
-//                        Address.builder()
-//                                .country(req.getCustomer().getAddress().getCountry())
-//                                .city(req.getCustomer().getAddress().getCity())
-//                                .street(req.getCustomer().getAddress().getStreet())
-//                                .zipcode(req.getCustomer().getAddress().getZipcode())
-//                                .build())
-//                .phoneNumber(req.getCustomer().getPhoneNumber())
-//                .roles(roles)
-//                .build();
+        customer.setRoles(roles);
 
         return customerRepository.save(customer);
     }

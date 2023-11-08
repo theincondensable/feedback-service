@@ -13,7 +13,7 @@ public class CustomerPasswordMismatch extends BusinessException {
         super(new ErrorDetails(
                 "entered.password.mismatch",
                 HttpStatus.FORBIDDEN,
-                null
+                email
         ));
     }
 

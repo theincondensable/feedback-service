@@ -13,7 +13,7 @@ public class CustomerTokenNotFound extends BusinessException {
         super(new ErrorDetails(
                 "customer.token.not.found",
                 HttpStatus.FORBIDDEN,
-                customerId
+                String.valueOf(customerId)
         ));
     }
 
