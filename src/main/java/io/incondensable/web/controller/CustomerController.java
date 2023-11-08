@@ -27,7 +27,7 @@ public class CustomerController {
 
     @ControllerLog
     @GetMapping("/{email}")
-    public ResponseEntity<CustomerResponseDto> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<CustomerResponseDto> getCustomerByEmail(@PathVariable String email) {
         return ResponseEntity.ok(
                 customerMapper.entityToDto(
                         customerService.getCustomerByEmail(email)

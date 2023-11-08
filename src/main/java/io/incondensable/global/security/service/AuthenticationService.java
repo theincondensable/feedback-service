@@ -1,6 +1,6 @@
 package io.incondensable.global.security.service;
 
-import io.incondensable.business.model.auth.Role;
+import io.incondensable.business.model.auth.CustomerRole;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.service.CustomerService;
 import io.incondensable.global.security.exceptions.CustomerPasswordMismatch;
@@ -52,7 +52,7 @@ public class AuthenticationService {
         );
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        List<String> roles = customer.getRoles().stream().map(Role::getAuthority).toList();
+        List<String> roles = customer.getCustomerRoles().stream().map(CustomerRole::getAuthority).toList();
         String token = tokenService.generateJwtTokenOnLogin(customer);
 
         return new LoggedInCustomerResponseDto(customer.getId(), token, roles);
