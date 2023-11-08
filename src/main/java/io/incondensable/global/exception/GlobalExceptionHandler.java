@@ -3,12 +3,12 @@ package io.incondensable.global.exception;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,18 +37,30 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<List<ErrorDetails>> validationException(MethodArgumentNotValidException ex) {
-        List<ErrorDetails> errorCodes = new ArrayList<>();
+        List<ErrorDetails> errorDetail = new ArrayList<>();
         ex.getBindingResult().getFieldErrors().forEach(
                 error -> {
                     ErrorDetails errorDetails = new ErrorDetails(
-                            error.getDefaultMessage(), HttpStatus.NOT_ACCEPTABLE, error.getArguments()
+                            error.getDefaultMessage(),
+                            HttpStatus.NOT_ACCEPTABLE,
+                            error.getArguments()
                     );
-                    errorCodes.add(errorDetails);
+                    errorDetail.add(errorDetails);
                 }
         );
         return ResponseEntity
-                .status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(errorCodes);
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errorDetail);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ResponseEntity> accessDeniedException() {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ResponseEntity
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .body("This User can't access this API.")
+                );
     }
 
 }

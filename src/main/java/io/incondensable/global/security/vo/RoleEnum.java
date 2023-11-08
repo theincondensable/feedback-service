@@ -5,5 +5,7 @@ package io.incondensable.global.security.vo;
  */
 public enum RoleEnum {
     ADMIN,
-    CUSTOMER
+    MANAGER,
+    CUSTOMER,
+    BIKER
 }

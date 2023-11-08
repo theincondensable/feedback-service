@@ -1,6 +1,7 @@
 package io.incondensable.business.service;
 
-import io.incondensable.business.exceptions.customer.CustomerNotFoundException;
+import io.incondensable.business.exceptions.customer.CustomerNotFoundWithEmail;
+import io.incondensable.business.exceptions.customer.CustomerNotFoundWithId;
 import io.incondensable.business.model.auth.Role;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.repository.CustomerRepository;
@@ -29,10 +30,17 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    public Customer getCustomerById(Long customerId) {
+        return customerRepository.findById(customerId)
+                .orElseThrow(() -> {
+                    throw new CustomerNotFoundWithId(customerId);
+                });
+    }
+
     public Customer getCustomerByEmail(String email) {
         return customerRepository.findCustomerByEmail(email)
                 .orElseThrow(() -> {
-                    throw new CustomerNotFoundException(email);
+                    throw new CustomerNotFoundWithEmail(email);
                 });
     }
 

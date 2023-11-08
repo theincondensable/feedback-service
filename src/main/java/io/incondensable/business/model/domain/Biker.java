@@ -1,7 +1,9 @@
-package io.incondensable.business.model.client;
+package io.incondensable.business.model.domain;
 
-import io.incondensable.business.model.auth.Role;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,35 +17,23 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+public class Biker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String firstname;
-    private String lastname;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(unique = true, nullable = false)
+    private String name;
     private String phoneNumber;
+    private Integer age;
 
-    @Embedded
-    private Address address;
-
-    @ManyToMany(
+    @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            mappedBy = "biker",
+            orphanRemoval = true
     )
-    private Set<Role> roles;
+    private Set<Delivery> deliveries;
 
     @CreationTimestamp
     private Instant createdOn;

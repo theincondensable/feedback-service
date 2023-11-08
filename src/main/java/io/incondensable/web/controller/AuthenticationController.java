@@ -38,15 +38,24 @@ public class AuthenticationController {
             summary = "To login with Credentials of the Customer.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
-                            examples = @ExampleObject(
-                                    name = "LoginWithCredentialsRequestDto",
-                                    summary = "Simple Admin Customer Credentials.",
+                            examples = {@ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto ADMIN",
+                                    summary = "Simple Admin Credentials.",
                                     value = """
                                             {
                                               "email": "admin@gmail.com",
                                               "password": "P@ssw0rd"
                                             }"""
-                            ))),
+                            ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto CUSTOMER",
+                                    summary = "Simple Customer Credentials.",
+                                    value = """
+                                            {
+                                              "email": "customer@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
+                            )}
+                    )),
             responses = {
                     @ApiResponse(responseCode = "200", description = "The Customer is logged-in."),
                     @ApiResponse(responseCode = "409", description = "Customer's E-Mail Address Not Found.")
@@ -61,7 +70,7 @@ public class AuthenticationController {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
                             examples = {@ExampleObject(
-                                    name = "SignupRequestDTO",
+                                    name = "SignupRequestDTO ADMIN",
                                     summary = "Simple Customer with ADMIN Role DTO Sample",
                                     value = """
                                             {
@@ -83,7 +92,7 @@ public class AuthenticationController {
                                               }
                                             }"""
                             ), @ExampleObject(
-                                    name = "SignupRequestDTO",
+                                    name = "SignupRequestDTO CUSTOMER",
                                     summary = "Simple Customer With CUSTOMER Role DTO Sample",
                                     value = """
                                             {
@@ -92,7 +101,7 @@ public class AuthenticationController {
                                                 "lastname": "dean",
                                                 "password": "P@ssw0rd",
                                                 "email": "customer@gmail.com",
-                                                "phoneNumber": "09001000000",
+                                                "phoneNumber": "09002000000",
                                                 "address": {
                                                   "country": "Iran",
                                                   "city": "Tehran",
@@ -100,11 +109,12 @@ public class AuthenticationController {
                                                   "zipcode": "123456789"
                                                 },
                                                 "roles": [
-                                                  "ADMIN"
+                                                  "CUSTOMER"
                                                 ]
                                               }
                                             }"""
-                            )})),
+                            )}
+                    )),
             responses = {
                     @ApiResponse(responseCode = "200", description = "The Customer has successfully signed up."),
                     @ApiResponse(responseCode = "409", description = "A Customer with The given E-Mail Address already exists.")

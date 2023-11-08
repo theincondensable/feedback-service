@@ -25,7 +25,7 @@ public class ControllerLogAspect {
 
     @Around(value = "logPointcut()")
     public Object around(ProceedingJoinPoint o) throws Throwable {
-        String parameters = o.getArgs()[0].toString();
+        String parameters = o.getArgs().length != 0 ? o.getArgs()[0].toString() : "";
         String scope = extractScope(o.getSignature().getDeclaringTypeName(), o.getSignature().getName());
 
         logger.logRequest(parameters, scope);

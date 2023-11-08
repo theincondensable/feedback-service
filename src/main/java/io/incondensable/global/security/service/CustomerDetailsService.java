@@ -1,6 +1,6 @@
 package io.incondensable.global.security.service;
 
-import io.incondensable.business.exceptions.customer.CustomerNotFoundException;
+import io.incondensable.business.exceptions.customer.CustomerNotFoundWithEmail;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.repository.CustomerRepository;
 import io.incondensable.global.security.vo.CustomerDetails;
@@ -25,7 +25,7 @@ public class CustomerDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findCustomerByEmail(username).orElseThrow(
                 () -> {
-                    throw new CustomerNotFoundException(username);
+                    throw new CustomerNotFoundWithEmail(username);
                 }
         );
 

@@ -1,4 +1,4 @@
-package io.incondensable.business.exceptions.customer;
+package io.incondensable.business.exceptions.delivery;
 
 import io.incondensable.global.exception.BusinessException;
 import io.incondensable.global.exception.ErrorDetails;
@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class CustomerNotFoundException extends BusinessException {
-
-    public CustomerNotFoundException(String email) {
+public class DeliveryNotFoundWithId extends BusinessException {
+    public DeliveryNotFoundWithId(Long deliveryId) {
         super(new ErrorDetails(
-                "customer.not.found.with.given.email",
+                "delivery.not.found.with.given.id",
                 HttpStatus.NOT_FOUND,
-                email
+                deliveryId
         ));
     }
-
 }

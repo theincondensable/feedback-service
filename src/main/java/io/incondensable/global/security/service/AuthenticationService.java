@@ -3,9 +3,8 @@ package io.incondensable.global.security.service;
 import io.incondensable.business.model.auth.Role;
 import io.incondensable.business.model.client.Customer;
 import io.incondensable.business.service.CustomerService;
-import io.incondensable.global.security.exceptions.CustomerPasswordMismatch;
 import io.incondensable.global.security.exceptions.CustomerEmailDuplicate;
-import io.incondensable.global.security.util.JwtUtil;
+import io.incondensable.global.security.exceptions.CustomerPasswordMismatch;
 import io.incondensable.global.security.vo.CustomerDetails;
 import io.incondensable.web.dto.auth.request.LoginWithCredentialsRequestDto;
 import io.incondensable.web.dto.auth.request.SignupRequestDto;
@@ -32,7 +31,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final CustomerService customerService;
     private final TokenService tokenService;
-    private final JwtUtil jwtUtil;
 
     /**
      * @param req is the incoming request for login purpose with E-Mail and Password of the Customer.
@@ -87,11 +85,5 @@ public class AuthenticationService {
 
         return customerService.createCustomerOnSignup(req, encodedPassword);
     }
-
-//    public LoggedInUserResponseDto loginWithOtp(LoginWithOtpRequestDto req) {
-//        Customer customer = customerService.getCustomerByEmail(req.getEmail());
-//
-//        if ()
-//    }
 
 }

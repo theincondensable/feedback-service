@@ -28,33 +28,17 @@ public final class ErrorDetails {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public HttpStatus getHttpStatus() {
         return httpStatus;
-    }
-
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
     }
 
     public Object[] getArgs() {
         return args;
     }
 
-    public void setArgs(Object... args) {
-        this.args = args;
-    }
-
-    public MapMessage<StringMapMessage, String> getErrorDetail() {
-        return errorDetail;
-    }
-
     public void setErrorDetail(Object... args) {
-        for (int i = 0; i < args.length; i++) {
-            this.errorDetail.put((String) args[i], String.valueOf(args[i]));
+        for (Object arg : args) {
+            this.errorDetail.put(String.valueOf(arg), String.valueOf(arg));
         }
     }
 }

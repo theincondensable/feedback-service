@@ -17,16 +17,16 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Token {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Column(nullable = false)
     private String token;
-
     private Instant activeTime;
 }
