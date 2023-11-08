@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
+
 /**
  * @author abbas
  */
@@ -19,20 +21,25 @@ public class ControllerLogAspect {
         this.logger = logger;
     }
 
-    @Pointcut("@annotation(io.incondensable.global.aspects.log.aspect.ControllerLog)")
+    /**
+     * <p>This Pointcut looks for ControllerLog Annotation.</p>
+     * <p>You might need some Controllers not to be Logged, so you can omit the Annotation over the Method.</p>
+     */
+    @Pointcut("@annotation(ControllerLog)")
     public void logPointcut() {
     }
 
     @Around(value = "logPointcut()")
     public Object around(ProceedingJoinPoint o) throws Throwable {
+        long start = new Date().getTime();
         String parameters = o.getArgs().length != 0 ? o.getArgs()[0].toString() : "";
         String scope = extractScope(o.getSignature().getDeclaringTypeName(), o.getSignature().getName());
+        logger.logRequest(scope, parameters);
 
-        logger.logRequest(parameters, scope);
+        Object res = o.proceed(); // Here the Controller comes into play.
 
-        Object res = o.proceed();
-
-        logger.logResponse(res.toString(), scope);
+        long end = new Date().getTime();
+        logger.logResponse(scope, res.toString(), (end - start));
         return res;
     }
 

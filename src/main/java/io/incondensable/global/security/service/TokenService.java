@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Random;
 
 /**
  * @author abbas
@@ -77,24 +76,14 @@ public class TokenService {
 
     public void deleteTokenOnLogout(long customerId) {
         tokenRepository.findTokenByCustomerId(customerId).ifPresentOrElse(
-                tokenRepository::delete,
+                token -> {
+                    token.setCustomer(null);
+                    tokenRepository.delete(token);
+                },
                 () -> {
                     throw new CustomerTokenNotFound(customerId);
                 }
         );
-    }
-
-    public Integer generateOtpCodeForCustomer(Customer customer) {
-        Integer code = new Random().nextInt(100_000, 999_999);
-//        Token.builder()
-//                .customer(customer)
-//                .token(String.valueOf(code))
-//                .activeTime()
-//                .build();
-//        user.setOtpCode(code);
-//        user.setOtpCounter(0);
-//        user.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        return code;
     }
 
 }

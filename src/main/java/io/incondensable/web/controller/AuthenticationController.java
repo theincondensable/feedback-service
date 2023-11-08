@@ -33,25 +33,41 @@ public class AuthenticationController {
     private final CustomerMapper customerMapper;
 
     @ControllerLog
-    @PostMapping("/login/credentials")
+    @PostMapping("/login")
     @Operation(
             summary = "To login with Credentials of the Customer.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
                             examples = {@ExampleObject(
                                     name = "LoginWithCredentialsRequestDto ADMIN",
-                                    summary = "Simple Admin Credentials.",
+                                    summary = "Admin or let's say System Credentials.",
                                     value = """
                                             {
                                               "email": "admin@gmail.com",
                                               "password": "P@ssw0rd"
                                             }"""
                             ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto MANAGER",
+                                    summary = "Manager Credentials.",
+                                    value = """
+                                            {
+                                              "email": "manager@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
+                            ), @ExampleObject(
                                     name = "LoginWithCredentialsRequestDto CUSTOMER",
-                                    summary = "Simple Customer Credentials.",
+                                    summary = "Customer Credentials.",
                                     value = """
                                             {
                                               "email": "customer@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
+                            ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto CUSTOMER2",
+                                    summary = "Customer2 Credentials.",
+                                    value = """
+                                            {
+                                              "email": "customer2@gmail.com",
                                               "password": "P@ssw0rd"
                                             }"""
                             )}
@@ -66,61 +82,39 @@ public class AuthenticationController {
     }
 
     @ControllerLog
+    @PostMapping("/signup")
     @Operation(summary = "To Create or Signup a Customer",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
-                            examples = {@ExampleObject(
-                                    name = "SignupRequestDTO ADMIN",
-                                    summary = "Simple Customer with ADMIN Role DTO Sample",
-                                    value = """
-                                            {
-                                              "customer": {
-                                                "firstname": "john",
-                                                "lastname": "doe",
-                                                "password": "P@ssw0rd",
-                                                "email": "admin@gmail.com",
-                                                "phoneNumber": "09001000000",
-                                                "address": {
-                                                  "country": "Iran",
-                                                  "city": "Tehran",
-                                                  "street": "Azadi",
-                                                  "zipcode": "123456789"
-                                                },
-                                                "roles": [
-                                                  "ADMIN"
-                                                ]
-                                              }
-                                            }"""
-                            ), @ExampleObject(
-                                    name = "SignupRequestDTO CUSTOMER",
+                            examples = @ExampleObject(
+                                    name = "SignupRequestDTO MANAGER",
                                     summary = "Simple Customer With CUSTOMER Role DTO Sample",
                                     value = """
                                             {
                                               "customer": {
-                                                "firstname": "sarah",
-                                                "lastname": "dean",
+                                                "firstname": "Abbas",
+                                                "lastname": "Ashrafi",
                                                 "password": "P@ssw0rd",
-                                                "email": "customer@gmail.com",
-                                                "phoneNumber": "09002000000",
+                                                "email": "abbasashrafi95@gmail.com",
+                                                "phoneNumber": "09019632702",
                                                 "address": {
                                                   "country": "Iran",
                                                   "city": "Tehran",
-                                                  "street": "Azadi",
-                                                  "zipcode": "123456789"
+                                                  "street": "Shariati",
+                                                  "zipcode": "1916773944"
                                                 },
                                                 "roles": [
                                                   "CUSTOMER"
                                                 ]
                                               }
                                             }"""
-                            )}
+                            )
                     )),
             responses = {
                     @ApiResponse(responseCode = "200", description = "The Customer has successfully signed up."),
                     @ApiResponse(responseCode = "409", description = "A Customer with The given E-Mail Address already exists.")
             }
     )
-    @PostMapping("/signup")
     public ResponseEntity<CustomerResponseDto> signup(
             @Valid @RequestBody SignupRequestDto req) {
         return ResponseEntity.ok(
@@ -128,6 +122,7 @@ public class AuthenticationController {
         );
     }
 
+    @ControllerLog
     @PostMapping("/logout")
     public ResponseEntity<BaseResponseDto<String>> logout() {
         String loggedOutCustomerEmailAddress = authService.logout();

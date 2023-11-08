@@ -1,0 +1,22 @@
+package io.incondensable.mapper;
+
+import io.incondensable.business.model.domain.Biker;
+import io.incondensable.web.dto.biker.response.BikerAverageRatingResponseDto;
+import io.incondensable.web.dto.biker.response.BikerResponseDto;
+
+/**
+ * @author abbas
+ */
+@Mapper
+public class BikerMapper {
+
+    public BikerResponseDto entityToDto(Biker biker) {
+        return new BikerResponseDto(
+                biker.getId(),
+                biker.getName(),
+                biker.getPhoneNumber(),
+                biker.getAge()
+        );
+    }
+
+}

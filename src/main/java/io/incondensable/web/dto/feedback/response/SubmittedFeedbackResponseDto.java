@@ -2,13 +2,11 @@ package io.incondensable.web.dto.feedback.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author abbas
  */
 @Getter
-@Setter
 @AllArgsConstructor
 public class SubmittedFeedbackResponseDto {
 

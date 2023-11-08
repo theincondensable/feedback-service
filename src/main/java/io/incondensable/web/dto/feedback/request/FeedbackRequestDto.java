@@ -3,7 +3,6 @@ package io.incondensable.web.dto.feedback.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
