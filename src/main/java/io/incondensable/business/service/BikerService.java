@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author abbas
  */
@@ -46,7 +48,11 @@ public class BikerService {
      * @return the average number calculated.
      */
     public double calculateAverageRatingOfBiker(Long bikerId) {
-        return feedbackService.getAllFeedbacksOfBiker(bikerId).stream()
+        List<Feedback> feedbacks = feedbackService.getAllFeedbacksOfBiker(bikerId);
+        if (feedbacks.size() == 0)
+            return 0.0;
+
+        return feedbacks.stream()
                 .mapToDouble(
                         Feedback::getRating
                 ).average()
