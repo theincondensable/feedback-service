@@ -2,6 +2,7 @@ package io.incondensable.business.model.auth;
 
 import io.incondensable.global.security.vo.RoleEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
  */
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role implements GrantedAuthority {

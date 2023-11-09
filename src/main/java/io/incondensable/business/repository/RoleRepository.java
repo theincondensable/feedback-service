@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Short> {
 
-    Role findAllByRole(RoleEnum role);
+    Role findRoleByRoleEnum(RoleEnum role);
 
 }

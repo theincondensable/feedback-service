@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BikerService {
 
-    private final BikerRepository bikerRepository;
     private final UserService userService;
+    private final BikerRepository bikerRepository;
     private final FeedbackService feedbackService;
 
     /**
-     * <p>For when the Logged-in User is a BIKER, use this method to get its information.</p>
+     * <p>For the Logged-in User as a BIKER, use this method to get its information.</p>
      * <p>Since a Biker has a UserID, we can find the Logged-in Biker, using its Customer ID which is saved
      * in Security Context Holder.</p>
      *

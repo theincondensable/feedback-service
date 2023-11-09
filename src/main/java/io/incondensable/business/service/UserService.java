@@ -4,8 +4,8 @@ import io.incondensable.business.exceptions.user.UserNotFoundWithEmail;
 import io.incondensable.business.exceptions.user.UserNotFoundWithId;
 import io.incondensable.business.model.auth.Role;
 import io.incondensable.business.model.client.User;
-import io.incondensable.business.repository.UserRepository;
 import io.incondensable.business.repository.RoleRepository;
+import io.incondensable.business.repository.UserRepository;
 import io.incondensable.global.security.vo.RoleEnum;
 import io.incondensable.mapper.UserMapper;
 import io.incondensable.web.dto.auth.request.SignupRequestDto;
@@ -52,7 +52,7 @@ public class UserService {
      * @return true if there is duplicate, otherwise returns false
      */
     public boolean isEmailDuplicate(String email) {
-        return userRepository.existsCustomerByEmail(email);
+        return userRepository.existsUserByEmail(email);
     }
 
     /**
@@ -60,13 +60,13 @@ public class UserService {
      * And also saves the User instance in Database.</p>
      *
      * @param req             contains the User information to be created
-     * @param encodedPassword
-     * @return
+     * @param encodedPassword encoded Password by PasswordEncoder component.
+     * @return the User created and persisted in the Database.
      */
     public User createUserOnSignup(SignupRequestDto req, String encodedPassword) {
         Set<Role> roles = new HashSet<>();
         req.getUser().getRoles().forEach(
-                r -> roles.add(roleRepository.findAllByRole(RoleEnum.valueOf(r)))
+                r -> roles.add(roleRepository.findRoleByRoleEnum(RoleEnum.valueOf(r)))
         );
 
         User user = userMapper.dtoToEntity(req.getUser());
