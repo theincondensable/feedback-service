@@ -59,7 +59,8 @@ public class AuthenticationService {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         List<String> roles = user.getRoles().stream().map(Role::getAuthority).toList();
-        String token = tokenService.generateJwtTokenOnLogin(user);
+        String token = tokenService.generateJwtTokenOnLogin(user)
+                .getToken();
 
         return new LoggedInUserResponseDto(user.getId(), token, roles);
     }
