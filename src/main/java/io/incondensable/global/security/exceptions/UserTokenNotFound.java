@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class CustomerTokenNotFound extends BusinessException {
+public class UserTokenNotFound extends BusinessException {
 
-    public CustomerTokenNotFound(Long customerId) {
+    public UserTokenNotFound(Long customerId) {
         super(new ErrorDetails(
-                "customer.token.not.found",
+                "user.token.not.found",
                 HttpStatus.FORBIDDEN,
                 String.valueOf(customerId)
         ));

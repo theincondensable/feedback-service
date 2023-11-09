@@ -34,7 +34,7 @@ public class BikerController {
             }
     )
     public ResponseEntity<BikerAverageRatingResponseDto> showBikerAverageRating() {
-        BikerResponseDto bikerProfile = mapper.entityToDto(service.getBikerByLoggedInCustomer());
+        BikerResponseDto bikerProfile = mapper.entityToDto(service.getBikerByLoggedInUser());
         return ResponseEntity.ok(
                 new BikerAverageRatingResponseDto(
                         bikerProfile,

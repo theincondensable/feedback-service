@@ -1,6 +1,6 @@
 package io.incondensable.global.security.vo;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * @author abbas
  */
-public class CustomerDetails implements UserDetails {
+public class FeedbackUserDetails implements UserDetails {
     private final Long id;
     private final String email;
     private final String password;
     private final String name;
     private final List<GrantedAuthority> authorities;
 
-    public CustomerDetails(Long id, String email, String password, String name, List<GrantedAuthority> authorities) {
+    public FeedbackUserDetails(Long id, String email, String password, String name, List<GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -27,15 +27,15 @@ public class CustomerDetails implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static CustomerDetails mapEntityToUserDetails(Customer customer) {
-        List<GrantedAuthority> authorities = new ArrayList<>(customer.getRoles().size());
-        authorities.addAll(customer.getRoles());
+    public static FeedbackUserDetails mapEntityToUserDetails(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>(user.getRoles().size());
+        authorities.addAll(user.getRoles());
 
-        return new CustomerDetails(
-                customer.getId(),
-                customer.getEmail(),
-                new SCryptPasswordEncoder().encode(customer.getPassword()),
-                String.join(" ", customer.getFirstname(), customer.getLastname()),
+        return new FeedbackUserDetails(
+                user.getId(),
+                user.getEmail(),
+                new SCryptPasswordEncoder().encode(user.getPassword()),
+                String.join(" ", user.getFirstname(), user.getLastname()),
                 authorities
         );
     }

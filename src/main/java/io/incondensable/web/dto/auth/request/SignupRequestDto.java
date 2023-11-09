@@ -1,9 +1,11 @@
 package io.incondensable.web.dto.auth.request;
 
-import io.incondensable.web.dto.customer.request.CustomerRequestDto;
+import io.incondensable.web.dto.user.request.UserRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.validation.Valid;
 
 /**
  * @author abbas
@@ -13,10 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SignupRequestDto {
 
-    private CustomerRequestDto customer;
+    @Valid private UserRequestDto user;
 
     @Override
     public String toString() {
-        return "" + customer.toString();
+        return "" + user.toString();
     }
 }

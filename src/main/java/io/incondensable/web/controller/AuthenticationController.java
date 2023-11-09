@@ -2,12 +2,11 @@ package io.incondensable.web.controller;
 
 import io.incondensable.global.aspects.log.aspect.ControllerLog;
 import io.incondensable.global.security.service.AuthenticationService;
-import io.incondensable.mapper.CustomerMapper;
-import io.incondensable.web.dto.BaseResponseDto;
+import io.incondensable.mapper.UserMapper;
 import io.incondensable.web.dto.auth.request.LoginWithCredentialsRequestDto;
 import io.incondensable.web.dto.auth.request.SignupRequestDto;
-import io.incondensable.web.dto.auth.response.LoggedInCustomerResponseDto;
-import io.incondensable.web.dto.customer.response.CustomerResponseDto;
+import io.incondensable.web.dto.auth.response.LoggedInUserResponseDto;
+import io.incondensable.web.dto.user.response.UserResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -30,12 +29,12 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     private final AuthenticationService authService;
-    private final CustomerMapper customerMapper;
+    private final UserMapper userMapper;
 
     @ControllerLog
     @PostMapping("/login")
     @Operation(
-            summary = "To login with Credentials of the Customer.",
+            summary = "To login with Credentials of the User.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
                             examples = {@ExampleObject(
@@ -70,28 +69,52 @@ public class AuthenticationController {
                                               "email": "customer2@gmail.com",
                                               "password": "P@ssw0rd"
                                             }"""
+                            ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto BIKER1",
+                                    summary = "BIKER1 Credentials.",
+                                    value = """
+                                            {
+                                              "email": "biker1@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
+                            ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto BIKER2",
+                                    summary = "BIKER2 Credentials.",
+                                    value = """
+                                            {
+                                              "email": "biker2@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
+                            ), @ExampleObject(
+                                    name = "LoginWithCredentialsRequestDto BIKER3",
+                                    summary = "BIKER3 Credentials.",
+                                    value = """
+                                            {
+                                              "email": "biker3@gmail.com",
+                                              "password": "P@ssw0rd"
+                                            }"""
                             )}
                     )),
             responses = {
-                    @ApiResponse(responseCode = "200", description = "The Customer is logged-in."),
-                    @ApiResponse(responseCode = "409", description = "Customer's E-Mail Address Not Found.")
+                    @ApiResponse(responseCode = "200", description = "The User is logged-in."),
+                    @ApiResponse(responseCode = "409", description = "User's E-Mail Address Not Found.")
             }
     )
-    public ResponseEntity<LoggedInCustomerResponseDto> loginWithCredentials(@Valid @RequestBody LoginWithCredentialsRequestDto req) {
+    public ResponseEntity<LoggedInUserResponseDto> loginWithCredentials(@Valid @RequestBody LoginWithCredentialsRequestDto req) {
         return ResponseEntity.ok(authService.loginWithCredentials(req));
     }
 
     @ControllerLog
     @PostMapping("/signup")
-    @Operation(summary = "To Create or Signup a Customer",
+    @Operation(summary = "To Create or Signup a User",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
                             examples = @ExampleObject(
-                                    name = "SignupRequestDTO MANAGER",
-                                    summary = "Simple Customer With CUSTOMER Role DTO Sample",
+                                    name = "SignupRequestDTO as CUSTOMER",
+                                    summary = "Simple User With CUSTOMER Role DTO Sample",
                                     value = """
                                             {
-                                              "customer": {
+                                              "user": {
                                                 "firstname": "Abbas",
                                                 "lastname": "Ashrafi",
                                                 "password": "P@ssw0rd",
@@ -111,25 +134,24 @@ public class AuthenticationController {
                             )
                     )),
             responses = {
-                    @ApiResponse(responseCode = "200", description = "The Customer has successfully signed up."),
-                    @ApiResponse(responseCode = "409", description = "A Customer with The given E-Mail Address already exists.")
+                    @ApiResponse(responseCode = "200", description = "The User has successfully signed up."),
+                    @ApiResponse(responseCode = "409", description = "A User with The given E-Mail Address already exists.")
             }
     )
-    public ResponseEntity<CustomerResponseDto> signup(
-            @Valid @RequestBody SignupRequestDto req) {
+    public ResponseEntity<UserResponseDto> signup(@Valid @RequestBody SignupRequestDto req) {
         return ResponseEntity.ok(
-                customerMapper.entityToDto(authService.signup(req))
+                userMapper.entityToDto(authService.signup(req))
         );
     }
 
     @ControllerLog
     @PostMapping("/logout")
-    public ResponseEntity<BaseResponseDto<String>> logout() {
-        String loggedOutCustomerEmailAddress = authService.logout();
-        return ResponseEntity.ok(new BaseResponseDto<>(
-                "Logout OK.",
-                ("The Customer with Email " + loggedOutCustomerEmailAddress + " has been successfully logged out.")
-        ));
+    @Operation(summary = "To logout the Current Logged-in User, and their Token is Deleted.")
+    public ResponseEntity<String> logout() {
+        String loggedOutUserEmailAddress = authService.logout();
+        return ResponseEntity.ok(
+                ("The User with Email " + loggedOutUserEmailAddress + " has been successfully logged out.")
+        );
     }
 
 }

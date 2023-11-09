@@ -1,4 +1,4 @@
-package io.incondensable.business.exceptions.customer;
+package io.incondensable.business.exceptions.user;
 
 import io.incondensable.global.exception.BusinessException;
 import io.incondensable.global.exception.ErrorDetails;
@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class CustomerNotFoundWithId extends BusinessException {
+public class UserNotFoundWithId extends BusinessException {
 
-    public CustomerNotFoundWithId(Long customerId) {
+    public UserNotFoundWithId(Long customerId) {
         super(new ErrorDetails(
-                "customer.not.found.with.given.email",
+                "user.not.found.with.given.id",
                 HttpStatus.NOT_FOUND,
                 customerId
         ));

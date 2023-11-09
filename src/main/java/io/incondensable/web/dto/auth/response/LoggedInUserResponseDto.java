@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class LoggedInCustomerResponseDto {
+public class LoggedInUserResponseDto {
     private Long customerId;
     private String token;
     private List<String> roles;

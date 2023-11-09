@@ -1,4 +1,4 @@
-package io.incondensable.web.dto.customer.request;
+package io.incondensable.web.dto.user.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -27,11 +27,11 @@ public class DeliveryController {
     private final DeliveryMapper deliveryMapper;
 
     @ControllerLog
-    @GetMapping("/customerDeliveries")
+    @GetMapping("/userDeliveries")
     @PreAuthorize("hasAuthority('CUSTOMER')")
-    @Operation(summary = "To Find Logged in Customer Deliveries so that they can submit a Feedback.",
+    @Operation(summary = "To Find Logged in Customer User Deliveries so that they can submit a Feedback.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Returns the Customer Deliveries"),
+                    @ApiResponse(responseCode = "200", description = "Returns the Customer User Deliveries"),
                     @ApiResponse(responseCode = "401", description = "If the Customer is not logged in, or its Role is not met")
             }
     )

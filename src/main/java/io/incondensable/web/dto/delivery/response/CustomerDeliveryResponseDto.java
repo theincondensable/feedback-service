@@ -13,11 +13,11 @@ import lombok.Setter;
 public class CustomerDeliveryResponseDto {
 
     private Long deliveryId;
-    private Long customerId;
+    private Long userId;
 
     @Override
     public String toString() {
         return "deliveryId=" + deliveryId +
-                ", customerId=" + customerId;
+                ", userId=" + userId;
     }
 }

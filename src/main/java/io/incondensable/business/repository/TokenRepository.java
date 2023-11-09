@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
-    @Query(value = "select t from Token t where t.customer.id = :customerId")
-    Optional<Token> findTokenByCustomerId(@Param("customerId") Long customerId);
+    @Query(value = "select t from Token t where t.user.id = :userId")
+    Optional<Token> findTokenByUserId(@Param("userId") Long userId);
 
 }

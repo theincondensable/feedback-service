@@ -1,4 +1,4 @@
-package io.incondensable.web.dto.customer.response;
+package io.incondensable.web.dto.user.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CustomerResponseDto {
+public class UserResponseDto {
     private String firstname;
     private String lastname;
     private String email;

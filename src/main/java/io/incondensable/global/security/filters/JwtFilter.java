@@ -5,7 +5,7 @@ import io.incondensable.global.exception.BusinessException;
 import io.incondensable.global.exception.ErrorDetails;
 import io.incondensable.global.security.service.TokenService;
 import io.incondensable.global.security.util.JwtUtil;
-import io.incondensable.global.security.vo.CustomerDetails;
+import io.incondensable.global.security.vo.FeedbackUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -61,7 +61,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private Authentication createAuthentication(String username) throws BusinessException {
-        CustomerDetails userDetails = (CustomerDetails) userDetailsService.loadUserByUsername(username);
+        FeedbackUserDetails userDetails = (FeedbackUserDetails) userDetailsService.loadUserByUsername(username);
         tokenService.validateTokenExpiration(userDetails.getId());
         return new UsernamePasswordAuthenticationToken(
                 userDetails,

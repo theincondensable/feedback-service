@@ -1,6 +1,6 @@
 package io.incondensable.business.model.auth;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.time.Instant;
  * @author abbas
  */
 @Entity
-@Table(name = "customer_token")
+@Table(name = "user_token")
 @Getter
 @Setter
 @Builder
@@ -23,8 +23,8 @@ public class Token {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false)
     private String token;

@@ -1,6 +1,6 @@
 package io.incondensable.business.repository;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,11 +12,11 @@ import java.util.Optional;
  * @author abbas
  */
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Customer> findCustomerByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 
-    @Query("select count(c) >= 1 from Customer c where c.email = :email")
+    @Query("select count(c) >= 1 from User c where c.email = :email")
     boolean existsCustomerByEmail(@Param("email") String email);
 
 }

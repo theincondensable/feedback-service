@@ -1,6 +1,6 @@
 package io.incondensable.business.repository;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import io.incondensable.business.model.domain.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +13,6 @@ import java.util.List;
 @Repository
 public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
-    List<Delivery> findAllByCustomer(Customer customer);
+    List<Delivery> findAllByDeliveree(User deliveree);
 
 }

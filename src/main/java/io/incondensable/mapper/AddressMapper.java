@@ -1,8 +1,8 @@
 package io.incondensable.mapper;
 
 import io.incondensable.business.model.client.Address;
-import io.incondensable.web.dto.customer.request.AddressRequestDto;
-import io.incondensable.web.dto.customer.response.AddressResponseDto;
+import io.incondensable.web.dto.user.request.AddressRequestDto;
+import io.incondensable.web.dto.user.response.AddressResponseDto;
 import org.springframework.stereotype.Component;
 
 /**

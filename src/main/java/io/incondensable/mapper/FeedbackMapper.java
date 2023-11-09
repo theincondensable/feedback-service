@@ -1,6 +1,6 @@
 package io.incondensable.mapper;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import io.incondensable.business.model.domain.Feedback;
 import io.incondensable.web.dto.feedback.response.FeedbackToManagerResponseDto;
 import io.incondensable.web.dto.feedback.response.SubmittedFeedbackResponseDto;
@@ -14,25 +14,27 @@ import java.util.Date;
 public class FeedbackMapper {
 
     public SubmittedFeedbackResponseDto entityToDto(Feedback feedback) {
-        Customer customer = feedback.getDelivery().getCustomer();
+        User deliveree = feedback.getDelivery().getDeliveree();
+        User biker = feedback.getDelivery().getBiker().getUser();
 
         return new SubmittedFeedbackResponseDto(
-                (customer.getFirstname() + " " + customer.getLastname()),
-                feedback.getDelivery().getBiker().getName(),
+                (deliveree.getFirstname() + " " + deliveree.getLastname()),
+                (biker.getFirstname() + " " + biker.getLastname()),
                 feedback.getRating(),
                 feedback.getComment()
         );
     }
 
     public FeedbackToManagerResponseDto entityToManagerDto(Feedback feedback) {
-        Customer customer = feedback.getDelivery().getCustomer();
+        User deliveree = feedback.getDelivery().getDeliveree();
+        User biker = feedback.getDelivery().getBiker().getUser();
 
         return new FeedbackToManagerResponseDto(
                 feedback.getId(),
                 feedback.getDelivery().getId(),
                 feedback.getBiker().getId(),
-                (customer.getFirstname() + " " + customer.getLastname()),
-                feedback.getDelivery().getBiker().getName(),
+                (deliveree.getFirstname() + " " + deliveree.getLastname()),
+                (biker.getFirstname() + " " + biker.getLastname()),
                 feedback.getRating(),
                 feedback.getComment(),
                 Date.from(feedback.getCreatedOn())

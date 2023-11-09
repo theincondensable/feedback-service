@@ -15,13 +15,13 @@ public class BikerResponseDto {
     private Long id;
     private String name;
     private String phoneNumber;
-    private Integer age;
+    private String email;
 
     @Override
     public String toString() {
         return "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", age=" + age;
+                ", email=" + email;
     }
 }

@@ -1,4 +1,4 @@
-package io.incondensable.web.dto.customer.request;
+package io.incondensable.web.dto.user.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CustomerRequestDto {
+public class UserRequestDto {
 
     private String firstname;
     private String lastname;
@@ -25,7 +26,11 @@ public class CustomerRequestDto {
 
     @NotBlank(message = "{email.is.null}")
     @NotNull(message = "{email.is.null}")
+    @Pattern(message = "{email.is.invalid}", regexp = "^(?=.{1,64}@)[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @NotBlank(message = "{phone.number.is.null}")
+    @NotNull(message = "{phone.number.is.null}")
     private String phoneNumber;
     private AddressRequestDto address;
     private Set<String> roles;

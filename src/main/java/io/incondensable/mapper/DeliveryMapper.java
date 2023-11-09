@@ -12,7 +12,7 @@ public class DeliveryMapper {
     public CustomerDeliveryResponseDto entityToDto(Delivery delivery) {
         return new CustomerDeliveryResponseDto(
                 delivery.getId(),
-                delivery.getCustomer().getId()
+                delivery.getDeliveree().getId()
         );
     }
 

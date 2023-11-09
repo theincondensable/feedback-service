@@ -16,9 +16,9 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 public class LoginWithCredentialsRequestDto {
 
-    @NotBlank(message = "{email.is.blank}")
-    @NotNull(message = "{email.is.blank}")
-    @Pattern(message = "{email.invalid}", regexp = "^(?=.{1,64}@)[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotBlank(message = "{email.is.null}")
+    @NotNull(message = "{email.is.null}")
+    @Pattern(message = "{email.is.invalid}", regexp = "^(?=.{1,64}@)[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     @NotBlank(message = "{password.is.null}")

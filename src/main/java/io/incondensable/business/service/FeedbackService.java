@@ -1,11 +1,11 @@
 package io.incondensable.business.service;
 
-import io.incondensable.business.exceptions.feedback.FeedbackInvalidCustomer;
+import io.incondensable.business.exceptions.feedback.FeedbackInvalidUser;
 import io.incondensable.business.exceptions.feedback.FeedbackSubmittedForDelivery;
 import io.incondensable.business.model.domain.Delivery;
 import io.incondensable.business.model.domain.Feedback;
 import io.incondensable.business.repository.FeedbackRepository;
-import io.incondensable.global.security.vo.CustomerDetails;
+import io.incondensable.global.security.vo.FeedbackUserDetails;
 import io.incondensable.web.dto.feedback.request.FeedbackRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedbackService {
 
-    private final FeedbackRepository feedbackRepository;
     private final DeliveryService deliveryService;
+    private final FeedbackRepository feedbackRepository;
+    private final NotificationService notificationService;
 
     /**
      * <p>The first validation is that if the Delivery has already a Feedback submitted on, an Exception is thrown.</p>
@@ -39,9 +40,9 @@ public class FeedbackService {
 
         Delivery delivery = deliveryService.getDeliveryById(req.getDeliveryId());
 
-        CustomerDetails loggedInCustomer = (CustomerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!loggedInCustomer.getId().equals(delivery.getCustomer().getId()))
-            throw new FeedbackInvalidCustomer(delivery.getCustomer().getId(), delivery.getId());
+        FeedbackUserDetails loggedInCustomer = (FeedbackUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!loggedInCustomer.getId().equals(delivery.getDeliveree().getId()))
+            throw new FeedbackInvalidUser(delivery.getDeliveree().getId(), delivery.getId());
 
         Feedback feedback = Feedback.builder()
                 .delivery(delivery)
@@ -50,7 +51,11 @@ public class FeedbackService {
                 .comment(req.getComment())
                 .build();
 
-        return feedbackRepository.save(feedback);
+        feedbackRepository.save(feedback);
+
+        notificationService.notifyByPhoneNumber(feedback.getBiker().getUser().getPhoneNumber());
+
+        return feedback;
     }
 
     public List<Feedback> getAllFeedbacksSortedByDate() {

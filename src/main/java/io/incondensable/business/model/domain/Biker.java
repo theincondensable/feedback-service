@@ -1,5 +1,6 @@
 package io.incondensable.business.model.domain;
 
+import io.incondensable.business.model.client.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,6 @@ public class Biker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String phoneNumber;
-    private Integer age;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -34,6 +32,9 @@ public class Biker {
             orphanRemoval = true
     )
     private Set<Delivery> deliveries;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @CreationTimestamp
     private Instant createdOn;

@@ -1,10 +1,10 @@
 package io.incondensable.business.service;
 
 import io.incondensable.business.exceptions.delivery.DeliveryNotFoundWithId;
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import io.incondensable.business.model.domain.Delivery;
 import io.incondensable.business.repository.DeliveryRepository;
-import io.incondensable.global.security.vo.CustomerDetails;
+import io.incondensable.global.security.vo.FeedbackUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.List;
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
-    private final CustomerService customerService;
+    private final UserService userService;
 
     public Delivery getDeliveryById(Long deliveryId) {
         return deliveryRepository.findById(deliveryId).orElseThrow(() -> {
@@ -28,10 +28,10 @@ public class DeliveryService {
     }
 
     public List<Delivery> getCustomerDeliveries() {
-        CustomerDetails loggedInCustomer = (CustomerDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Customer customer = customerService.getCustomerById(loggedInCustomer.getId());
+        FeedbackUserDetails loggedInUser = (FeedbackUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User deliveree = userService.getUserById(loggedInUser.getId());
 
-        return deliveryRepository.findAllByCustomer(customer);
+        return deliveryRepository.findAllByDeliveree(deliveree);
     }
 
 }

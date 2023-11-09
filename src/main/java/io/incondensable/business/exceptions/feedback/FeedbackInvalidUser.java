@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class FeedbackInvalidCustomer extends BusinessException {
+public class FeedbackInvalidUser extends BusinessException {
 
-    public FeedbackInvalidCustomer(Long customerId, Long deliveryId) {
+    public FeedbackInvalidUser(Long customerId, Long deliveryId) {
         super(new ErrorDetails(
-                "feedback.must.be.submitted.by.proper.customer",
+                "feedback.must.be.submitted.by.proper.user",
                 HttpStatus.FORBIDDEN,
                 customerId, deliveryId
         ));

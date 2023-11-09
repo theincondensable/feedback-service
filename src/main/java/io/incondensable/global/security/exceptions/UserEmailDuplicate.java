@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
 /**
  * @author abbas
  */
-public class CustomerPasswordMismatch extends BusinessException {
+public class UserEmailDuplicate extends BusinessException {
 
-    public CustomerPasswordMismatch(String email) {
+    public UserEmailDuplicate(String email) {
         super(new ErrorDetails(
-                "entered.password.mismatch",
-                HttpStatus.FORBIDDEN,
+                "given.email.already.exists",
+                HttpStatus.CONFLICT,
                 email
         ));
     }

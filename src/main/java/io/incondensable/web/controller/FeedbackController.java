@@ -49,7 +49,7 @@ public class FeedbackController {
             ),
             responses = {
                     @ApiResponse(responseCode = "200", description = "Returns the preview of your Feedback"),
-                    @ApiResponse(responseCode = "403", description = "If the Customer is not the one who the Delivery is delivered to."),
+                    @ApiResponse(responseCode = "403", description = "If the User is not the one who the Delivery is delivered to."),
                     @ApiResponse(responseCode = "404", description = "If the Delivery ID is not Found."),
                     @ApiResponse(responseCode = "409", description = "If the Feedback is already submitted.")
             }

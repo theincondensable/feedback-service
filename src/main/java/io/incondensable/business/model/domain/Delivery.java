@@ -1,12 +1,11 @@
 package io.incondensable.business.model.domain;
 
-import io.incondensable.business.model.client.Customer;
+import io.incondensable.business.model.client.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -30,7 +29,7 @@ public class Delivery {
     private Biker biker;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private User deliveree;
 
     @CreationTimestamp
     private Instant createdOn;
