@@ -1,7 +1,6 @@
 package io.incondensable.business.service;
 
 import io.incondensable.business.model.client.User;
-import io.incondensable.business.model.domain.Biker;
 import io.incondensable.business.model.domain.Delivery;
 import io.incondensable.business.model.domain.Feedback;
 import io.incondensable.business.repository.FeedbackRepository;

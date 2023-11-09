@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeliveryService {
 
-    private final DeliveryRepository deliveryRepository;
     private final UserService userService;
+    private final DeliveryRepository deliveryRepository;
 
     public Delivery getDeliveryById(Long deliveryId) {
         return deliveryRepository.findById(deliveryId).orElseThrow(() -> {
