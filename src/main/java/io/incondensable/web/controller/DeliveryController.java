@@ -27,7 +27,7 @@ public class DeliveryController {
     private final DeliveryMapper deliveryMapper;
 
     @ControllerLog
-    @GetMapping("/userDeliveries")
+    @GetMapping("/customerDeliveries")
     @PreAuthorize("hasAuthority('CUSTOMER')")
     @Operation(summary = "To Find Logged in Customer User Deliveries so that they can submit a Feedback.",
             responses = {

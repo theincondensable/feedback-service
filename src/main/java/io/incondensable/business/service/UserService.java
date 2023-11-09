@@ -66,7 +66,7 @@ public class UserService {
     public User createUserOnSignup(SignupRequestDto req, String encodedPassword) {
         Set<Role> roles = new HashSet<>();
         req.getUser().getRoles().forEach(
-                r -> roles.add(roleRepository.findRoleByRoleEnum(RoleEnum.valueOf(r)))
+                r -> roles.add(roleRepository.findRoleByRole(RoleEnum.valueOf(r)))
         );
 
         User user = userMapper.dtoToEntity(req.getUser());

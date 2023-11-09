@@ -32,7 +32,7 @@ VALUES ('Scranton', 'U.S', 'Slough Avenue', '185057427', 'manager@gmail.com', 'M
 # CUSTOMER
 INSERT INTO USER (city, country, street, zipcode, email, firstname, lastname, password, phone_number, created_on,
                       last_updated_on)
-VALUES ('Tehran', 'Iran', 'Shoosh', '192819827', 'user@gmail.com', 'Sarah', 'Dean',
+VALUES ('Tehran', 'Iran', 'Shoosh', '192819827', 'customer@gmail.com', 'Sarah', 'Dean',
         '$e0801$2u8TUqRLMOrXqk4XciUUEQBbj38mZsyg5D2KK+LrFRUroParRBqbOeGIdArLOLLQyPidM5eqCTOGr8MZ89vlNw==$JGtdnHOaTDOU39n2nj/C+t8ORS8Of3m90iL9swakWBs=',
         '09003000000',
         CURRENT_TIMESTAMP, null);
