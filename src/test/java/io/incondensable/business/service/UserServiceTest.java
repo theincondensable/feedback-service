@@ -1,15 +1,11 @@
 package io.incondensable.business.service;
 
-import io.incondensable.business.model.auth.Role;
-import io.incondensable.business.model.client.Address;
 import io.incondensable.business.model.client.User;
 import io.incondensable.business.repository.RoleRepository;
 import io.incondensable.business.repository.UserRepository;
 import io.incondensable.business.service.model.user.SignupRequestDtoDummy;
 import io.incondensable.business.service.model.user.UserDummy;
 import io.incondensable.global.exception.BusinessException;
-import io.incondensable.global.security.vo.RoleEnum;
-import io.incondensable.mapper.AddressMapper;
 import io.incondensable.mapper.UserMapper;
 import io.incondensable.util.FeedbackTestUtil;
 import io.incondensable.web.dto.auth.request.SignupRequestDto;
@@ -31,7 +27,6 @@ class UserServiceTest {
     private final UserMapper userMapper = mock(UserMapper.class);
     private final RoleRepository roleRepository = mock(RoleRepository.class);
     private final UserRepository userRepository = mock(UserRepository.class);
-    private final AddressMapper addressMapper = mock(AddressMapper.class);
 
     private final UserService SUT = new UserService(roleRepository, userMapper, userRepository);
 
